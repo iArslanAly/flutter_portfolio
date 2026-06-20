@@ -179,7 +179,7 @@ nav.scrolled {
 .nav-links a:hover { transform:translateY(-1px) }
 .nav-cta {
   background:var(--grad); color:#fff; border:none; cursor:pointer;
-  padding:0.55rem 1.4rem; border-radius:8px;
+  padding:0.55rem 1.4rem; border-radius:12px;
   font-size:0.875rem; font-weight:600; text-decoration:none;
   box-shadow:0 4px 18px rgba(13,245,255,0.22);
   transition:opacity .2s, transform .2s var(--spring), box-shadow .2s;
@@ -205,7 +205,16 @@ nav.scrolled {
 }
 .float-hire.show { opacity:1; transform:translateY(0); pointer-events:all }
 .float-hire:hover { box-shadow:0 12px 36px rgba(13,245,255,0.45); transform:translateY(-3px) }
-.fh-dot { width:7px; height:7px; background:var(--green); border-radius:50%; box-shadow:0 0 6px var(--green) }
+.fh-dot {
+  width:7px; height:7px; background:var(--green); border-radius:50%;
+  box-shadow:0 0 6px var(--green);
+  position:relative;
+}
+.fh-dot::after {
+  content:''; position:absolute; inset:-3px; border-radius:50%;
+  background:rgba(30,232,160,0.4);
+  animation:ping 2s ease-out infinite;
+}
 
 /* ═══════════════════════════════════
    HERO  ← complete rewrite
@@ -318,7 +327,7 @@ nav.scrolled {
 }
 .btn-primary {
   background:var(--grad); color:#fff; border:none; cursor:pointer;
-  padding:0.85rem 2rem; border-radius:10px;
+  padding:0.85rem 2rem; border-radius:12px;
   font-size:0.95rem; font-weight:600; text-decoration:none;
   box-shadow:0 6px 22px rgba(13,245,255,0.24);
   transition:transform .25s var(--spring), box-shadow .25s;
@@ -336,7 +345,7 @@ nav.scrolled {
 .btn-full { width:100%; justify-content:center }
 .btn-outline {
   background:transparent; color:var(--white);
-  border:1px solid var(--border2); padding:0.85rem 1.8rem; border-radius:10px;
+  border:1px solid var(--border2); padding:0.85rem 1.8rem; border-radius:12px;
   font-size:0.95rem; font-weight:500; text-decoration:none;
   transition:all .25s var(--ease-out);
   display:inline-flex; align-items:center; gap:6px;
@@ -345,7 +354,7 @@ nav.scrolled {
 
 /* ── Hero card wrapper — creates gradient border reliably ── */
 .card-wrap {
-  width:100%; max-width:460px;
+  width:100%; max-width:520px;
   background:var(--grad);
   border-radius:24px; padding:1.5px;
   box-shadow:0 32px 90px rgba(0,0,0,0.55), 0 0 80px rgba(13,245,255,0.08);
@@ -356,7 +365,7 @@ nav.scrolled {
 .hero-card {
   background:rgba(15,22,33,0.92);
   backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
-  border-radius:23px; padding:34px; position:relative; overflow:hidden;
+  border-radius:23px; padding:40px; position:relative; overflow:hidden;
 }
 /* Inner glow accent */
 .hero-card::before {
@@ -573,7 +582,7 @@ h2 {
 ═══════════════════════════════════ */
 #about { border-bottom:1px solid var(--border) }
 .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start }
-.about-bio { font-size:1rem; color:var(--white2); line-height:1.85; margin-bottom:24px }
+.about-bio { font-size:1rem; color:var(--white2); line-height:1.9; margin-bottom:24px }
 .about-bio strong { color:var(--white); font-weight:600 }
 .hl-card {
   background:var(--card); border-left:3px solid var(--cyan);
@@ -688,6 +697,12 @@ h2 {
 .proj.c5 { grid-column:span 5 }
 .proj.c6 { grid-column:span 6 }
 
+.proj {
+  background:var(--card); border:1px solid var(--border); border-radius:18px;
+  display:flex; flex-direction:column; overflow:hidden;
+  transition:transform .3s var(--spring), border-color .3s, box-shadow .3s;
+}
+.proj:hover { transform:translateY(-6px) scale(1.02); border-color:rgba(13,245,255,0.25); box-shadow:0 22px 60px rgba(0,0,0,0.4) }
 .proj-thumb {
   aspect-ratio:16/9; display:flex; align-items:center; justify-content:center;
   font-size:3.8rem; position:relative; overflow:hidden;
@@ -786,7 +801,7 @@ h2 {
 .fg input::placeholder, .fg textarea::placeholder { color:var(--muted2); opacity:0.7 }
 .fg textarea { min-height:130px; resize:vertical }
 .form-foot { padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:1rem; border-top:1px solid var(--border) }
-.btn-sub { background:var(--grad); color:#fff; border:none; cursor:pointer; padding:0.75rem 1.8rem; border-radius:9px; font-family:'DM Mono',monospace; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 6px 18px rgba(13,245,255,0.22); transition:opacity .2s, transform .25s var(--spring); position:relative; overflow:hidden }
+.btn-sub { background:var(--grad); color:#fff; border:none; cursor:pointer; padding:0.75rem 1.8rem; border-radius:12px; font-family:'DM Mono',monospace; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 6px 18px rgba(13,245,255,0.22); transition:opacity .2s, transform .25s var(--spring); position:relative; overflow:hidden }
 .btn-sub:hover { opacity:0.86; transform:translateY(-2px) }
 .btn-sub:disabled { cursor:not-allowed; opacity:0.62; transform:none }
 .btn-sub.loading { display:inline-flex; align-items:center; justify-content:center; gap:10px }
