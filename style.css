@@ -785,6 +785,7 @@ h2 {
 .form-foot { padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:1rem; border-top:1px solid var(--border) }
 .btn-sub { background:var(--grad); color:#fff; border:none; cursor:pointer; padding:0.75rem 1.8rem; border-radius:9px; font-family:'DM Mono',monospace; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 6px 18px rgba(13,245,255,0.22); transition:opacity .2s, transform .25s var(--spring); position:relative; overflow:hidden }
 .btn-sub:hover { opacity:0.86; transform:translateY(-2px) }
+.btn-sub:disabled { cursor:not-allowed; opacity:0.62; transform:none }
 #fmsg { font-family:'DM Mono',monospace; font-size:0.7rem }
 #fmsg.ok  { color:var(--green) }
 #fmsg.err { color:#F87171 }

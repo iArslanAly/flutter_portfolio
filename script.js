@@ -99,14 +99,61 @@ window.addEventListener('scroll', updateActiveNav, { passive: true });
 updateActiveNav();
 
 /* ── CONTACT FORM ── */
-function submitForm() {
+const emailJsConfig = {
+  serviceId: 'service_jnciz4n',
+  templateId: 'template_wopl08o',
+  publicKey: 'oniDNUwiE3_GWxJ8m',
+  endpoint: 'https://api.emailjs.com/api/v1.0/email/send'
+};
+
+async function submitForm() {
   const n = document.getElementById('fn').value.trim();
   const e = document.getElementById('fe').value.trim();
+  const p = document.getElementById('fp').value.trim();
+  const s = document.getElementById('fs').value.trim();
   const m = document.getElementById('fm').value.trim();
   const msg = document.getElementById('fmsg');
-  if (!n || !e || !m) { msg.textContent = 'Please fill in name, email & message.'; msg.className = 'err'; return; }
+  const btn = document.getElementById('submitBtn');
+  if (!n || !e || !s || !m) { msg.textContent = 'Please fill in name, email, subject & message.'; msg.className = 'err'; return; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { msg.textContent = 'Please enter a valid email address.'; msg.className = 'err'; return; }
-  msg.textContent = '✓ Sent! I\'ll get back to you shortly.'; msg.className = 'ok';
-  ['fn','fe','fp','fs','fm'].forEach(id => document.getElementById(id).value = '');
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  msg.textContent = 'Sending your message...';
+  msg.className = '';
+
+  try {
+    const response = await fetch(emailJsConfig.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        service_id: emailJsConfig.serviceId,
+        template_id: emailJsConfig.templateId,
+        user_id: emailJsConfig.publicKey,
+        template_params: {
+          name: n,
+          email: e,
+          phone: p,
+          subject: s,
+          message: m,
+          time: new Date().toISOString()
+        }
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    msg.textContent = 'Message sent successfully. I will get back to you shortly.';
+    msg.className = 'ok';
+    ['fn','fe','fp','fs','fm'].forEach(id => document.getElementById(id).value = '');
+  } catch (error) {
+    msg.textContent = 'Message could not be sent. Please email contact@iarslanaly.dev directly.';
+    msg.className = 'err';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send message →';
+  }
 }
 document.getElementById('submitBtn').addEventListener('click', submitForm);
