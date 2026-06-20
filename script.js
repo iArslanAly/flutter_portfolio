@@ -118,6 +118,7 @@ async function submitForm() {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) { msg.textContent = 'Please enter a valid email address.'; msg.className = 'err'; return; }
 
   btn.disabled = true;
+  btn.classList.add('loading');
   btn.textContent = 'Sending...';
   msg.textContent = 'Sending your message...';
   msg.className = '';
@@ -153,6 +154,7 @@ async function submitForm() {
     msg.className = 'err';
   } finally {
     btn.disabled = false;
+    btn.classList.remove('loading');
     btn.textContent = 'Send message →';
   }
 }

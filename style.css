@@ -113,6 +113,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   66%  { transform:translate(-20px,20px) scale(0.96) }
   100% { transform:translate(0,0) scale(1) }
 }
+@keyframes spin {
+  to { transform:rotate(360deg) }
+}
 
 /* ═══════════════════════════════════
    SCROLL PROGRESS BAR
@@ -786,6 +789,14 @@ h2 {
 .btn-sub { background:var(--grad); color:#fff; border:none; cursor:pointer; padding:0.75rem 1.8rem; border-radius:9px; font-family:'DM Mono',monospace; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 6px 18px rgba(13,245,255,0.22); transition:opacity .2s, transform .25s var(--spring); position:relative; overflow:hidden }
 .btn-sub:hover { opacity:0.86; transform:translateY(-2px) }
 .btn-sub:disabled { cursor:not-allowed; opacity:0.62; transform:none }
+.btn-sub.loading { display:inline-flex; align-items:center; justify-content:center; gap:10px }
+.btn-sub.loading::after {
+  content:'';
+  width:13px; height:13px; border-radius:50%;
+  border:2px solid rgba(255,255,255,0.38);
+  border-top-color:#fff;
+  animation:spin 0.75s linear infinite;
+}
 #fmsg { font-family:'DM Mono',monospace; font-size:0.7rem }
 #fmsg.ok  { color:var(--green) }
 #fmsg.err { color:#F87171 }
