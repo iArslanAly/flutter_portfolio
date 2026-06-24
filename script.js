@@ -14,9 +14,24 @@ const fh = document.getElementById('fhire');
 window.addEventListener('scroll', () => fh.classList.toggle('show', window.scrollY > 420), { passive: true });
 
 /* ── MOBILE MENU ── */
-document.getElementById('ham').addEventListener('click', () => document.getElementById('mob').classList.add('open'));
-document.getElementById('mobX').addEventListener('click', () => document.getElementById('mob').classList.remove('open'));
-function cM() { document.getElementById('mob').classList.remove('open'); }
+const menuButton = document.getElementById('ham');
+const mobileMenu = document.getElementById('mob');
+const closeMenuButton = document.getElementById('mobX');
+
+function setMenu(open) {
+  mobileMenu.classList.toggle('open', open);
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  menuButton.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+  if (open) closeMenuButton.focus();
+}
+
+menuButton.addEventListener('click', () => setMenu(true));
+closeMenuButton.addEventListener('click', () => setMenu(false));
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
+});
+function cM() { setMenu(false); }
 document.querySelectorAll('#mob a').forEach(link => link.addEventListener('click', cM));
 
 /* ── TYPEWRITER ── */
@@ -106,7 +121,8 @@ const emailJsConfig = {
   endpoint: 'https://api.emailjs.com/api/v1.0/email/send'
 };
 
-async function submitForm() {
+async function submitForm(event) {
+  event.preventDefault();
   const n = document.getElementById('fn').value.trim();
   const e = document.getElementById('fe').value.trim();
   const p = document.getElementById('fp').value.trim();
@@ -155,7 +171,10 @@ async function submitForm() {
   } finally {
     btn.disabled = false;
     btn.classList.remove('loading');
-    btn.textContent = 'Send message →';
+    btn.textContent = 'Send message';
   }
 }
-document.getElementById('submitBtn').addEventListener('click', submitForm);
+document.getElementById('contactForm').addEventListener('submit', submitForm);
+
+const year = document.getElementById('year');
+if (year) year.textContent = new Date().getFullYear();

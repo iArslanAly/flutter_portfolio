@@ -1,0 +1,17 @@
+{
+  "name": "Arslan Ali - Flutter Developer",
+  "short_name": "Arslan Ali",
+  "description": "Portfolio and Flutter app development services by Arslan Ali.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
