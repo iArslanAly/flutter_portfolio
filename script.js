@@ -1,6 +1,47 @@
 /* ── SCROLL PROGRESS ── */
 const prog = document.getElementById('prog');
 const nav = document.querySelector('nav');
+
+/* ── FAST SECTION NAVIGATION ── */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+function scrollToSection(target, updateHistory = true) {
+  const navOffset = nav.offsetHeight + 12;
+  const start = window.scrollY;
+  const destination = Math.max(target.getBoundingClientRect().top + start - navOffset, 0);
+  const distance = destination - start;
+
+  if (prefersReducedMotion.matches || Math.abs(distance) < 80) {
+    window.scrollTo(0, destination);
+  } else {
+    const duration = Math.min(560, Math.max(280, Math.abs(distance) * 0.18));
+    const startedAt = performance.now();
+
+    function animateScroll(now) {
+      const progress = Math.min((now - startedAt) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      window.scrollTo(0, start + distance * eased);
+      if (progress < 1) requestAnimationFrame(animateScroll);
+    }
+
+    requestAnimationFrame(animateScroll);
+  }
+
+  if (updateHistory) history.pushState(null, '', `#${target.id}`);
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', event => {
+    const id = link.getAttribute('href').slice(1);
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+
+    event.preventDefault();
+    if (mobileMenu?.classList.contains('open')) setMenu(false);
+    scrollToSection(target);
+  });
+});
+
 function updateScrollUI() {
   const scrollable = Math.max(document.body.scrollHeight - window.innerHeight, 1);
   prog.style.width = (window.scrollY / scrollable * 100) + '%';

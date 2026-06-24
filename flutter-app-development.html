@@ -23,13 +23,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0NYCV99TDH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-0NYCV99TDH');
-</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -165,7 +158,22 @@
     <a href="/">Portfolio</a>
     <a href="mailto:contact@iarslanaly.dev">Email</a>
     <a href="https://www.upwork.com/freelancers/~017c64bbb9c7001600" target="_blank" rel="noopener noreferrer">Upwork</a>
+    <a href="/privacy-policy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <button class="footer-link-button" type="button" data-manage-consent>Cookie settings</button>
   </div>
 </footer>
+
+<aside class="consent-banner" id="consentBanner" role="dialog" aria-labelledby="consentTitle" aria-describedby="consentDescription" tabindex="-1">
+  <div>
+    <strong id="consentTitle">Optional analytics</strong>
+    <p id="consentDescription">I use Google Analytics to understand website visits and improve this portfolio. Analytics loads only if you accept. Read the <a href="/privacy-policy.html">privacy policy</a>.</p>
+  </div>
+  <div class="consent-actions">
+    <button class="consent-decline" id="declineAnalytics" type="button">Decline</button>
+    <button class="consent-accept" id="acceptAnalytics" type="button">Accept analytics</button>
+  </div>
+</aside>
+<script src="consent.js" defer></script>
 </body>
 </html>
