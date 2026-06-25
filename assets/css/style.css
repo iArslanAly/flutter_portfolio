@@ -1262,6 +1262,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
 }
 .service-hero-copy .service-proof { margin-top:30px }
 .service-brief-card {
+  align-self:start; margin-top:54px;
   padding:26px; border:1px solid var(--glass-border); border-radius:12px;
   background:
     linear-gradient(145deg,rgba(255,255,255,0.065),transparent 45%),
@@ -1559,7 +1560,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
     min-height:auto; padding:104px 5% 68px;
   }
   .service-hero-layout { grid-template-columns:1fr; gap:42px }
-  .service-brief-card { max-width:620px }
+  .service-brief-card { max-width:620px; margin-top:0 }
   .service-offer-grid { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .service-process .service-steps { grid-template-columns:repeat(2,minmax(0,1fr)) }
   .service-process .service-steps article:nth-child(2) { border-right:0 }
