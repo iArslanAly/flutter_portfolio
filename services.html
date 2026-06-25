@@ -63,14 +63,14 @@
 }
 </script>
 </head>
-<body class="service-page">
+<body class="service-page services-page">
 <a class="skip-link" href="#main-content">Skip to main content</a>
 <nav class="inner-nav" aria-label="Primary navigation">
   <a class="nav-logo" href="/">Arslan Ali</a>
   <div class="inner-nav-links">
     <a href="/projects.html">Projects</a>
     <a href="/#about">About</a>
-    <a class="nav-cta" href="/#contact">Request an estimate</a>
+    <a class="nav-cta" href="/#contact">Contact</a>
   </div>
 </nav>
 
@@ -107,7 +107,13 @@
     </div>
   </header>
 
-  <section class="section service-content">
+  <nav class="service-jump-links" aria-label="Services page sections">
+    <a href="#capabilities">Capabilities</a>
+    <a href="#engagements">Engagements</a>
+    <a href="#delivery-process">Process</a>
+  </nav>
+
+  <section class="section service-content" id="capabilities">
     <div class="si">
       <div class="service-copy-grid">
         <div>
@@ -117,37 +123,37 @@
         <p class="service-lead">Bring me a new product, an existing codebase, or a specific technical problem. I can own a complete build or work alongside your current team.</p>
       </div>
       <div class="service-offer-grid">
-        <article class="service-offer">
+        <article class="service-offer" id="flutter-development">
           <span class="service-offer-num">01</span><div class="service-offer-icon" aria-hidden="true">📱</div>
           <h3>Flutter app development</h3>
           <p>Production-ready iOS, Android, and web applications with responsive interfaces, reliable state management, and maintainable architecture.</p>
           <strong>Flutter · Dart · BLoC · Riverpod</strong>
         </article>
-        <article class="service-offer">
+        <article class="service-offer" id="flutterflow">
           <span class="service-offer-num">02</span><div class="service-offer-icon" aria-hidden="true">⚡</div>
           <h3>FlutterFlow and rapid MVPs</h3>
           <p>Fast product validation using FlutterFlow, with custom Dart actions and clean integrations where visual development needs more flexibility.</p>
           <strong>FlutterFlow · Custom actions · MVP</strong>
         </article>
-        <article class="service-offer">
+        <article class="service-offer" id="backend-integration">
           <span class="service-offer-num">03</span><div class="service-offer-icon" aria-hidden="true">☁</div>
           <h3>Backend and API integration</h3>
           <p>Authentication, databases, storage, notifications, payments, analytics, REST APIs, and dependable third-party integrations.</p>
           <strong>Firebase · Supabase · REST APIs</strong>
         </article>
-        <article class="service-offer">
+        <article class="service-offer" id="ui-design">
           <span class="service-offer-num">04</span><div class="service-offer-icon" aria-hidden="true">✦</div>
           <h3>UI implementation and design</h3>
           <p>Thoughtful mobile interfaces implemented from Figma or developed from an initial product idea, with attention to clarity and usability.</p>
           <strong>Figma · Design systems · Responsive UI</strong>
         </article>
-        <article class="service-offer">
+        <article class="service-offer" id="app-optimization">
           <span class="service-offer-num">05</span><div class="service-offer-icon" aria-hidden="true">↗</div>
           <h3>Performance and codebase improvement</h3>
           <p>Architecture reviews, priority bug fixes, frame-rate and startup optimization, state-management cleanup, and feature extension.</p>
           <strong>Audit · Refactor · Performance</strong>
         </article>
-        <article class="service-offer">
+        <article class="service-offer" id="release-support">
           <span class="service-offer-num">06</span><div class="service-offer-icon" aria-hidden="true">✓</div>
           <h3>Release and ongoing support</h3>
           <p>Production builds, store preparation, deployment workflows, CI/CD support, monitoring, and continued development after launch.</p>
@@ -157,7 +163,7 @@
     </div>
   </section>
 
-  <section class="section engagement-section">
+  <section class="section engagement-section" id="engagements">
     <div class="si">
       <div class="service-copy-grid">
         <div><div class="stag">Flexible collaboration</div><h2>Choose the engagement that fits your team</h2></div>
@@ -171,7 +177,7 @@
     </div>
   </section>
 
-  <section class="section service-process">
+  <section class="section service-process" id="delivery-process">
     <div class="si">
       <div class="stag">Working process</div>
       <h2>Clear communication from scope to release</h2>
