@@ -139,7 +139,7 @@ nav {
   display:flex; align-items:center; justify-content:space-between;
   padding:0 5%; height:66px;
   background:rgba(13,17,23,0.82);
-  backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px); backdrop-filter:blur(22px);
   border-bottom:1px solid var(--border);
   transition:height .25s var(--spring), background .25s var(--ease-out), box-shadow .25s var(--ease-out);
 }
@@ -402,7 +402,7 @@ nav.scrolled {
 .card-wrap:hover { transform:translateY(-6px); box-shadow:0 38px 100px rgba(0,0,0,0.58), var(--shadow-glow) }
 .hero-card {
   background:rgba(15,22,33,0.92);
-  backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px); backdrop-filter:blur(24px);
   border-radius:19px; padding:28px; position:relative; overflow:hidden;
 }
 /* Inner glow accent */
@@ -1172,7 +1172,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
 /* ═══════════════════════════════════
    MOBILE MENU
 ═══════════════════════════════════ */
-.mob { display:none; position:fixed; inset:0; z-index:300; background:rgba(13,17,23,0.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); flex-direction:column; align-items:center; justify-content:center; gap:1.8rem }
+.mob { display:none; position:fixed; inset:0; z-index:300; background:rgba(13,17,23,0.97); -webkit-backdrop-filter:blur(24px); backdrop-filter:blur(24px); flex-direction:column; align-items:center; justify-content:center; gap:1.8rem }
 .mob.open { display:flex }
 .mob a { font-family:'Syne',sans-serif; font-size:2.2rem; font-weight:800; color:var(--white); text-decoration:none; transition:all .2s }
 .mob a:hover { background:var(--grad-text); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text }
@@ -1562,7 +1562,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
 @media (max-width:1024px) {
   .hero-main { gap:3rem }
   .services-page .service-hero {
-    min-height:auto; padding:104px 5% 68px;
+    min-height:0; padding:104px 5% 68px;
   }
   .service-hero-layout { grid-template-columns:1fr; gap:42px }
   .service-brief-card { max-width:620px; margin-top:0 }
@@ -1601,7 +1601,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
   .hero-left { text-align:left }
   .hero-right { justify-content:center; width:100% }
   .hero-right::before { width:92%; filter:blur(36px) }
-  .card-wrap  { max-width:100%; max-width:460px }
+  .card-wrap  { max-width:460px }
   .hero-card  { padding:26px }
   .card-av    { width:52px; height:52px; font-size:1.05rem }
   .cs-n       { font-size:1.3rem }
@@ -1629,7 +1629,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
   .footer-bottom { align-items:flex-start; flex-direction:column }
   .inner-nav-links { gap:0 }
   .inner-nav-links > a:not(.nav-cta) { display:none }
-  .service-hero { min-height:auto; padding:104px 5% 60px }
+  .service-hero { min-height:0; padding:104px 5% 60px }
   .service-hero h1 { font-size:clamp(2.8rem,13vw,4.5rem) }
   .service-hero-layout { gap:30px }
   .service-hero-copy h1 {
@@ -1642,7 +1642,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
   .service-brief-card li { padding:12px 0; font-size:0.79rem }
   .service-jump-links {
     justify-content:flex-start; overflow-x:auto; padding:11px 5%;
-    scrollbar-width:none; position:sticky; top:60px;
+    position:sticky; top:60px;
   }
   .service-jump-links::-webkit-scrollbar { display:none }
   .service-jump-links a { white-space:nowrap; flex-shrink:0; min-height:36px }
@@ -1793,7 +1793,8 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
     max-width:330px; margin-bottom:16px;
     font-size:clamp(2.2rem,10.5vw,3rem);
     line-height:1.04; letter-spacing:-0.02em;
-    overflow-wrap:normal; word-break:normal; hyphens:none;
+    overflow-wrap:normal; word-break:normal;
+    -webkit-hyphens:none; hyphens:none;
   }
   .services-page .service-hero-copy > p {
     max-width:35rem; margin-bottom:20px;
@@ -1849,7 +1850,8 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
   .services-page .service-cta h2 {
     max-width:100%; font-size:clamp(1.55rem,7.4vw,2.2rem);
     line-height:1.16; letter-spacing:0;
-    overflow-wrap:normal; word-break:normal; hyphens:none;
+    overflow-wrap:normal; word-break:normal;
+    -webkit-hyphens:none; hyphens:none;
   }
   .services-page .service-lead {
     margin-top:15px; font-size:0.88rem; line-height:1.68;
@@ -1993,7 +1995,8 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
     max-width:100%; margin-bottom:18px;
     font-size:clamp(2.05rem,9.7vw,3.15rem);
     line-height:1.07; letter-spacing:0;
-    overflow-wrap:normal; word-break:normal; hyphens:none;
+    overflow-wrap:normal; word-break:normal;
+    -webkit-hyphens:none; hyphens:none;
   }
   .projects-page .projects-hero p {
     max-width:100%; margin-bottom:24px;
