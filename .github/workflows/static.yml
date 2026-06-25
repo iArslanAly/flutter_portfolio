@@ -1,43 +1,117 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy portfolio to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches:
+      - main
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: github-pages
+  cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
+  build:
+    name: Build and validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build clean site artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p _site
+
+          cp -R assets _site/assets
+          cp ./*.html _site/
+          cp CNAME .nojekyll robots.txt sitemap.xml site.webmanifest _site/
+
+      - name: Validate generated site
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import re
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          site = Path("_site")
+          required = [
+              "index.html",
+              "services.html",
+              "projects.html",
+              "privacy-policy.html",
+              "terms.html",
+              "robots.txt",
+              "sitemap.xml",
+              "site.webmanifest",
+              "CNAME",
+              ".nojekyll",
+          ]
+
+          missing = [name for name in required if not (site / name).exists()]
+          if missing:
+              raise SystemExit(f"Missing required files: {', '.join(missing)}")
+
+          json.loads((site / "site.webmanifest").read_text(encoding="utf-8"))
+          ET.parse(site / "sitemap.xml")
+
+          link_pattern = re.compile(r'(?:href|src)="([^"]+)"')
+          for html_file in site.glob("*.html"):
+              html = html_file.read_text(encoding="utf-8")
+
+              if html.count("<h1") > 1:
+                  raise SystemExit(f"{html_file}: more than one H1")
+
+              for reference in link_pattern.findall(html):
+                  if reference.startswith(("http://", "https://", "mailto:", "#", "data:")):
+                      continue
+
+                  path_part = reference.split("#", 1)[0].split("?", 1)[0]
+                  target = path_part.lstrip("/") or "index.html"
+                  if not (site / target).exists():
+                      raise SystemExit(
+                          f"{html_file}: local reference does not exist: {reference}"
+                      )
+
+          domain = (site / "CNAME").read_text(encoding="utf-8").strip()
+          if domain != "iarslanaly.dev":
+              raise SystemExit(f"Unexpected CNAME value: {domain}")
+
+          print("Static site validation passed.")
+          PY
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
   deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
