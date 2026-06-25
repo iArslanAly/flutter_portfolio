@@ -1188,8 +1188,8 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
 }
 .inner-nav-links > a:not(.nav-cta):hover { color:var(--white) }
 .service-hero {
-  min-height:680px; display:flex; align-items:center;
-  padding:118px 5% 78px; border-bottom:1px solid var(--border);
+  min-height:740px; display:flex; align-items:center;
+  padding:132px 5% 92px; border-bottom:1px solid var(--border);
   background:
     linear-gradient(rgba(13,245,255,0.025) 1px, transparent 1px),
     linear-gradient(90deg,rgba(13,245,255,0.025) 1px, transparent 1px),
@@ -1246,15 +1246,20 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
 
 /* Revamped services experience */
 .service-hero-layout {
-  display:grid; grid-template-columns:minmax(0,1.2fr) minmax(320px,0.72fr);
-  align-items:center; gap:clamp(40px,5vw,72px);
+  display:grid; grid-template-columns:minmax(0,1.25fr) minmax(300px,0.65fr);
+  align-items:center; gap:clamp(56px,6vw,84px);
   width:100%; max-width:1200px; margin:0 auto;
 }
+.service-hero-copy { min-width:0 }
 .service-hero-copy h1 {
-  max-width:720px; margin-bottom:22px;
+  max-width:700px; margin-bottom:24px;
   color:var(--white); font-family:'Syne',sans-serif;
-  font-size:clamp(3.2rem,5.8vw,5.5rem); line-height:1;
+  font-size:clamp(3.2rem,5.3vw,5.3rem); line-height:1;
   font-weight:800; letter-spacing:-0.035em;
+}
+.service-hero-copy h1 > span {
+  display:block;
+  font-size:1.08em;
 }
 .service-hero-copy > p {
   max-width:620px; margin-bottom:28px;
@@ -1262,7 +1267,7 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
 }
 .service-hero-copy .service-proof { margin-top:30px }
 .service-brief-card {
-  align-self:start; margin-top:54px;
+  align-self:start; min-width:0; margin-top:166px;
   padding:26px; border:1px solid var(--glass-border); border-radius:12px;
   background:
     linear-gradient(145deg,rgba(255,255,255,0.065),transparent 45%),
