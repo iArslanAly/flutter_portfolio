@@ -14,10 +14,10 @@ from urllib.parse import unquote, urlparse
 DOMAIN = "iarslanaly.dev"
 REQUIRED_FILES = (
     "index.html",
-    "services.html",
-    "projects.html",
-    "privacy-policy.html",
-    "terms.html",
+    "services/index.html",
+    "projects/index.html",
+    "privacy-policy/index.html",
+    "terms/index.html",
     "404.html",
     "robots.txt",
     "sitemap.xml",
@@ -128,7 +128,7 @@ def validate(site: Path) -> None:
     except (OSError, ET.ParseError) as error:
         errors.append(f"sitemap.xml: {error}")
 
-    html_pages = sorted(site.glob("*.html"))
+    html_pages = sorted(site.rglob("*.html"))
     parsed_pages = {page.resolve(): parse_page(page) for page in html_pages}
 
     for page, parser in parsed_pages.items():

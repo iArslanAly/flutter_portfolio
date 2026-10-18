@@ -1,0 +1,13 @@
+# 301 redirects — old flat URLs to clean directory URLs (Cloudflare Pages)
+/services.html                  /services/                            301
+/projects.html                  /projects/                            301
+/renue.html                     /projects/renue/                      301
+/nutriglow.html                 /projects/nutriglow/                  301
+/unidrive.html                  /projects/unidrive/                   301
+/truesight.html                 /projects/truesight/                  301
+/e-shop.html                    /projects/e-shop/                     301
+/employee-attendance.html       /projects/employee-attendance/       301
+/meal-planner.html              /projects/meal-planner/              301
+/blog-app.html                  /projects/blog-app/                  301
+/privacy-policy.html            /privacy-policy/                      301
+/terms.html                     /terms/                               301

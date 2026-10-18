@@ -5,78 +5,78 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
     <loc>https://iarslanaly.dev/</loc>
-    <lastmod>2026-06-25</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-10-18</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/services.html</loc>
+    <loc>https://iarslanaly.dev/services/</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/projects.html</loc>
+    <loc>https://iarslanaly.dev/projects/</loc>
     <lastmod>2026-06-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/renue.html</loc>
+    <loc>https://iarslanaly.dev/projects/renue/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/nutriglow.html</loc>
+    <loc>https://iarslanaly.dev/projects/nutriglow/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/unidrive.html</loc>
+    <loc>https://iarslanaly.dev/projects/unidrive/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/truesight.html</loc>
+    <loc>https://iarslanaly.dev/projects/truesight/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/e-shop.html</loc>
+    <loc>https://iarslanaly.dev/projects/e-shop/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/employee-attendance.html</loc>
+    <loc>https://iarslanaly.dev/projects/employee-attendance/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/meal-planner.html</loc>
+    <loc>https://iarslanaly.dev/projects/meal-planner/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/blog-app.html</loc>
+    <loc>https://iarslanaly.dev/projects/blog-app/</loc>
     <lastmod>2026-10-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/privacy-policy.html</loc>
+    <loc>https://iarslanaly.dev/privacy-policy/</loc>
     <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://iarslanaly.dev/terms.html</loc>
+    <loc>https://iarslanaly.dev/terms/</loc>
     <lastmod>2026-06-24</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

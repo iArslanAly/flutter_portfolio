@@ -1,4 +1,25 @@
+# robots.txt — https://iarslanaly.dev
+# ALLOW ALL user agents and bots — no crawling restrictions on this site.
+
 User-agent: *
 Allow: /
 
+# Explicitly allow major search crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Explicitly allow AI / LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Crawl budget hint — everything above / is indexable
 Sitemap: https://iarslanaly.dev/sitemap.xml

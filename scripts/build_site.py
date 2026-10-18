@@ -16,8 +16,9 @@ ROOT_FILES = (
     "robots.txt",
     "sitemap.xml",
     "site.webmanifest",
+    "_redirects",
 )
-DIRECTORIES = ("assets",)
+DIRECTORIES = ("assets", "services", "projects", "privacy-policy", "terms")
 
 
 def build(output: Path) -> None:
