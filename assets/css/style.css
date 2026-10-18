@@ -48,7 +48,7 @@
   --glass-shadow:0 20px 56px rgba(0,0,0,0.32);
 }
 
-html { scroll-behavior:auto }
+html { scroll-behavior:smooth }
 body {
   background:
     radial-gradient(circle at 18% 12%, rgba(13,245,255,0.08), transparent 28rem),
@@ -861,11 +861,14 @@ h2 {
 .proc-card {
   background:var(--card); border:1px solid var(--border); border-radius:18px; padding:36px 28px;
   position:relative; overflow:hidden;
-  transition:transform .3s var(--spring), border-color .3s, box-shadow .3s;
+  transition:transform .5s var(--spring), border-color .4s, box-shadow .5s;
 }
-.proc-card::before { content:''; position:absolute; inset:0; background:var(--grad-glow); opacity:0; transition:opacity .3s }
-.proc-card:hover { transform:translateY(-6px); border-color:rgba(13,245,255,0.28); box-shadow:0 18px 50px rgba(0,0,0,0.35) }
+.proc-card::before { content:''; position:absolute; inset:0; background:var(--grad-glow); opacity:0; transition:opacity .4s }
+.proc-card:hover { transform:translateY(-5px); border-color:rgba(13,245,255,0.28); box-shadow:0 26px 60px -30px rgba(0,0,0,0.55) }
 .proc-card:hover::before { opacity:1 }
+
+/* Industry standards */
+.std-badges { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:40px }
 .proc-num {
   font-family:'Syne',sans-serif; font-size:3rem; font-weight:800; line-height:1;
   background:var(--grad-text); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
@@ -898,11 +901,14 @@ h2 {
 .proj-grid-featured .ptag { font-size:0.59rem; padding:3px 8px }
 .proj {
   background:var(--card); border:1px solid var(--border); border-radius:18px; overflow:hidden;
-  display:flex; flex-direction:column;
-  transition:border-color .3s, box-shadow .3s, transform .3s var(--spring);
-  transform-style:preserve-3d;
+  display:flex; flex-direction:column; position:relative;
+  transition:transform .55s var(--spring), border-color .4s var(--ease-out), box-shadow .55s var(--ease-out);
 }
-.proj:hover { transform:translateY(-6px) scale(1.02); border-color:rgba(13,245,255,0.25); box-shadow:0 22px 60px rgba(0,0,0,0.4) }
+.proj:hover {
+  transform:translateY(-6px);
+  border-color:rgba(13,245,255,0.28);
+  box-shadow:0 30px 70px -28px rgba(0,0,0,0.65), 0 0 0 1px rgba(13,245,255,0.14), 0 30px 80px -50px rgba(13,245,255,0.5);
+}
 .proj.c7, .proj.c5, .proj.c6 { grid-column:auto }
 .proj-thumb {
   aspect-ratio:16/7; display:flex; align-items:center; justify-content:center;
@@ -927,7 +933,52 @@ h2 {
   filter:drop-shadow(0 0 22px rgba(13,245,255,0.3));
   transition:transform .4s var(--spring);
 }
-.proj:hover .proj-emoji { transform:scale(1.1) translateY(-4px) }
+.proj:hover .proj-emoji { transform:scale(1.05) }
+
+/* Premium pointer spotlight — --mx/--my set by script.js, fine pointers only */
+.proj::after,
+.proc-card::after {
+  content:''; position:absolute; inset:0; z-index:3; pointer-events:none;
+  background:radial-gradient(340px circle at var(--mx,-400px) var(--my,-400px), rgba(13,245,255,0.09), transparent 62%);
+  opacity:0; transition:opacity .5s var(--ease-out);
+}
+.proj:hover::after,
+.proc-card:hover::after { opacity:1 }
+
+/* App-mockup project thumbnails (no image assets required) */
+.proj-mock {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; align-items:center; gap:7px;
+  width:132px; padding:13px 14px 14px;
+  background:rgba(10,14,20,0.78);
+  border:1px solid rgba(174,208,255,0.14);
+  border-radius:16px;
+  box-shadow:0 18px 44px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  transform:rotate(-3deg);
+  transition:transform .45s var(--spring);
+}
+.proj-mock-notch { width:34px; height:4px; border-radius:99px; background:rgba(255,255,255,0.16) }
+.proj-mock .proj-emoji { font-size:2rem; line-height:1 }
+.proj-mock-line { width:76%; height:5px; border-radius:99px; background:rgba(196,206,216,0.14) }
+.proj-mock-line.short { width:48%; background:rgba(196,206,216,0.09) }
+.proj-mock-row { display:flex; gap:6px; margin-top:3px }
+.proj-mock-row i {
+  width:17px; height:17px; border-radius:6px;
+  background:rgba(13,245,255,0.10); border:1px solid rgba(13,245,255,0.20);
+}
+.proj-mock-row i:nth-child(2) { background:rgba(155,110,255,0.10); border-color:rgba(155,110,255,0.20) }
+.proj:hover .proj-mock { transform:rotate(0deg) translateY(-3px) }
+
+/* Highlight the project opened via /projects.html#anchor */
+.proj:target {
+  border-color:rgba(13,245,255,0.55);
+  box-shadow:0 0 0 3px rgba(13,245,255,0.12), 0 26px 70px rgba(0,0,0,0.45);
+  animation:projFlash 1.8s var(--ease-out) 0.35s;
+}
+@keyframes projFlash {
+  0%   { box-shadow:0 0 0 0 rgba(13,245,255,0.45), 0 26px 70px rgba(0,0,0,0.45) }
+  100% { box-shadow:0 0 0 20px rgba(13,245,255,0), 0 26px 70px rgba(0,0,0,0.45) }
+}
 
 .proj-body { padding:18px 20px 20px; flex:1; display:flex; flex-direction:column }
 .proj-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px }

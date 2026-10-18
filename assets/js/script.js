@@ -120,25 +120,20 @@ const rObs = new IntersectionObserver(entries => {
 }, { threshold: 0.08, rootMargin: '-16px 0px -16px 0px' });
 document.querySelectorAll('.reveal').forEach(el => rObs.observe(el));
 
-/* ── 3D CARD TILT — smooth, transform only ── */
-document.querySelectorAll('.tilt').forEach(card => {
-  let raf;
-  card.addEventListener('mousemove', e => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const r  = card.getBoundingClientRect();
-      const x  = (e.clientX - r.left) / r.width  - 0.5;
-      const y  = (e.clientY - r.top)  / r.height - 0.5;
-      card.style.transition = 'none';
-      card.style.transform  = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 7}deg) translateY(-6px) scale(1.01)`;
+/* ── PREMIUM CARD SPOTLIGHT — CSS variables only, fine pointers ── */
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.querySelectorAll('.proj, .proc-card').forEach(card => {
+    let raf;
+    card.addEventListener('pointermove', e => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
     });
   });
-  card.addEventListener('mouseleave', () => {
-    cancelAnimationFrame(raf);
-    card.style.transition = 'transform 0.55s cubic-bezier(0.16,1,0.3,1), border-color .3s, box-shadow .3s';
-    card.style.transform  = 'perspective(900px) rotateX(0) rotateY(0) translateY(0) scale(1)';
-  });
-});
+}
 
 /* ── ACTIVE NAV ── */
 const sects = document.querySelectorAll('section[id]');

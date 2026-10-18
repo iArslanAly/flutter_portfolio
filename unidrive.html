@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en-PK">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>UniDrive — Unified Cloud Storage Case Study | Arslan Ali</title>
+<meta name="description" content="UniDrive is a full-stack storage pooler that unifies Google Drive and S3-compatible accounts with chunked uploads, range-streamed previews, and encrypted vault manifests, built by Arslan Ali."/>
+<meta name="author" content="Arslan Ali"/>
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1"/>
+<meta property="og:title" content="UniDrive — Unified Cloud Storage | Arslan Ali"/>
+<meta property="og:description" content="Full-stack storage pooler unifying Google Drive and S3 accounts with chunked uploads, streaming previews, and disaster recovery."/>
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://iarslanaly.dev/unidrive.html"/>
+<meta property="og:image" content="https://iarslanaly.dev/assets/images/og-image.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="canonical" href="https://iarslanaly.dev/unidrive.html"/>
+<link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" sizes="180x180"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/assets/css/style.css"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CreativeWork",
+      "@id": "https://iarslanaly.dev/unidrive.html#project",
+      "name": "UniDrive",
+      "description": "UniDrive is a full-stack storage pooler that unifies Google Drive and S3-compatible accounts with chunked uploads, range-streamed previews, and encrypted vault manifests, built by Arslan Ali.",
+      "url": "https://iarslanaly.dev/unidrive.html",
+      "author": {
+        "@type": "Person",
+        "@id": "https://iarslanaly.dev/#person",
+        "name": "Arslan Ali",
+        "url": "https://iarslanaly.dev/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://iarslanaly.dev/" },
+        { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://iarslanaly.dev/projects.html" },
+        { "@type": "ListItem", "position": 3, "name": "UniDrive", "item": "https://iarslanaly.dev/unidrive.html" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body class="service-page project-detail-page">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<nav class="inner-nav" aria-label="Primary navigation">
+  <a class="nav-logo" href="/">Arslan Ali</a>
+  <div class="inner-nav-links">
+    <a href="/projects.html">Projects</a>
+    <a href="/services.html">Services</a>
+    <a class="nav-cta" href="/#contact">Contact</a>
+  </div>
+</nav>
+
+<main id="main-content">
+  <header class="service-hero">
+    <div class="service-hero-layout">
+      <div class="service-hero-copy">
+        <div class="stag">Full-stack product</div>
+        <h1><span>UniDrive</span> unified cloud storage</h1>
+        <p>A local-first storage pooler that combines multiple Google Drive accounts and S3-compatible buckets into one virtual vault &#8212; chunking oversized files across drives and streaming them back with full seek support.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="/#contact">Start a project</a>
+          <a class="btn-outline" href="/projects.html">All projects</a>
+        </div>
+        <div class="service-proof" aria-label="Project highlights">
+          <span>Node.js &amp; React</span>
+          <span>Google Drive + S3</span>
+          <span>TypeScript</span>
+        </div>
+      </div>
+      <aside class="service-brief-card">
+        <div class="service-brief-top">
+          <span>Tech stack</span>
+          <i>Case study</i>
+        </div>
+        <ul>
+          <li><span>01</span>Node.js &#183; Express 5 &#183; TypeScript</li>
+          <li><span>02</span>Prisma with SQLite (WAL)</li>
+          <li><span>03</span>React 19 &#183; Vite &#183; Tailwind CSS</li>
+          <li><span>04</span>Google Drive &amp; S3-compatible APIs</li>
+          <li><span>05</span>JWT auth &#183; Argon2 &#183; encrypted tokens</li>
+        </ul>
+        <a href="mailto:contact@iarslanaly.dev">contact@iarslanaly.dev <span aria-hidden="true">&#8599;</span></a>
+      </aside>
+    </div>
+  </header>
+  <section class="section service-content" id="highlights">
+    <div class="si">
+      <div class="service-copy-grid">
+        <div>
+          <div class="stag">Inside the product</div>
+          <h2>One vault across every storage account</h2>
+        </div>
+        <p class="service-lead">UniDrive routes each upload to the account with the right free space, splits oversized files across drives, and keeps only a tiny index on the server.</p>
+      </div>
+      <div class="service-offer-grid">
+        <article class="service-offer">
+          <span class="service-offer-num">01</span><div class="service-offer-icon" aria-hidden="true">&#128193;</div>
+          <h3>Unified storage pools</h3>
+          <p>Connect several Google Drive accounts and S3 providers &#8212; AWS S3, Cloudflare R2, Wasabi, Backblaze B2, MinIO &#8212; with combined quota tracking.</p>
+          <strong>Multi-account &#183; Combined quota</strong>
+        </article>
+        <article class="service-offer">
+          <span class="service-offer-num">02</span><div class="service-offer-icon" aria-hidden="true">&#128230;</div>
+          <h3>Dynamic chunked uploads</h3>
+          <p>Files larger than a single account's free space are split into 500&#160;MB&#8211;1&#160;GB parts and dispatched by most-available, round-robin, or priority routing.</p>
+          <strong>500&#160;MB&#8211;1&#160;GB parts &#183; Smart routing</strong>
+        </article>
+        <article class="service-offer">
+          <span class="service-offer-num">03</span><div class="service-offer-icon" aria-hidden="true">&#9654;&#65039;</div>
+          <h3>Streaming and previews</h3>
+          <p>HTTP 206 range requests across chunk boundaries power in-app previews for images, video, audio, PDFs, and text.</p>
+          <strong>Range seeking &#183; Universal viewer</strong>
+        </article>
+        <article class="service-offer">
+          <span class="service-offer-num">04</span><div class="service-offer-icon" aria-hidden="true">&#128272;</div>
+          <h3>Security first</h3>
+          <p>Argon2 password hashing, JWT access and refresh tokens, hashed refresh tokens, and encrypted provider tokens at rest.</p>
+          <strong>JWT &#183; Argon2 &#183; Encryption</strong>
+        </article>
+        <article class="service-offer">
+          <span class="service-offer-num">05</span><div class="service-offer-icon" aria-hidden="true">&#128279;</div>
+          <h3>Sharing and API access</h3>
+          <p>Virtual folders, public share links with hashed tokens, per-user invites, and external upload API keys.</p>
+          <strong>Folders &#183; Shares &#183; API keys</strong>
+        </article>
+        <article class="service-offer">
+          <span class="service-offer-num">06</span><div class="service-offer-icon" aria-hidden="true">&#128737;&#65039;</div>
+          <h3>Disaster recovery</h3>
+          <p>A sealed, per-user encrypted vault manifest is synced to storage so the entire file, chunk, and account topology can be rebuilt after data loss.</p>
+          <strong>Vault manifest &#183; Zero server disk</strong>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section service-process" id="build-facts">
+    <div class="si">
+      <div class="stag">Build facts</div>
+      <h2>Full-stack from database to UI</h2>
+      <div class="service-steps">
+        <article><span>01</span><strong>Backend</strong><p>Express 5 + TypeScript API with Prisma over embedded SQLite in WAL mode &#8212; no external database.</p></article>
+        <article><span>02</span><strong>Frontend</strong><p>React 19 + Vite + Tailwind CSS with storage-pool views and an in-app preview stage.</p></article>
+        <article><span>03</span><strong>Auth</strong><p>Email/password and Google sign-in with automatic first-drive connection.</p></article>
+        <article><span>04</span><strong>Storage</strong><p>Files stream straight through to providers and are never written to server disk.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section service-cta">
+    <div class="si">
+      <div>
+        <div class="stag">Your product could be next</div>
+        <h2>Need a full-stack engineer?</h2>
+        <p>Storage systems, APIs, or web dashboards &#8212; I can design and build the whole stack.</p>
+      </div>
+      <div class="service-cta-actions"><a class="btn-primary" href="/#contact">Start a conversation</a><a class="btn-outline" href="mailto:contact@iarslanaly.dev">Email directly</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="inner-footer">
+  <div class="inner-footer-main">
+    <div class="inner-footer-brand">
+      <a class="f-logo" href="/">Arslan Ali</a>
+      <p>Independent Flutter developer working with founders, businesses, agencies, and remote product teams.</p>
+      <a class="inner-footer-email" href="mailto:contact@iarslanaly.dev">contact@iarslanaly.dev</a>
+    </div>
+    <div class="inner-footer-links">
+      <div><span>Explore</span><a href="/">Home</a><a href="/projects.html">Projects</a><a href="/#about">About</a></div>
+      <div><span>Connect</span><a href="https://linkedin.com/in/iarslanaly" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://github.com/iarslanaly" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.upwork.com/freelancers/~017c64bbb9c7001600" target="_blank" rel="noopener noreferrer">Top Rated on Upwork</a></div>
+    </div>
+  </div>
+  <div class="inner-footer-bottom">
+    <span class="f-copy">&copy; 2026 Arslan Ali</span>
+    <div><a href="/privacy-policy.html">Privacy</a><a href="/terms.html">Terms</a><button class="footer-link-button" type="button" data-manage-consent>Cookie settings</button></div>
+  </div>
+</footer>
+
+<aside class="consent-banner" id="consentBanner" role="dialog" aria-labelledby="consentTitle" aria-describedby="consentDescription" tabindex="-1">
+  <div>
+    <strong id="consentTitle">Optional analytics</strong>
+    <p id="consentDescription">I use Google Analytics to understand website visits and improve this portfolio. Analytics loads only if you accept. Read the <a href="/privacy-policy.html">privacy policy</a>.</p>
+  </div>
+  <div class="consent-actions">
+    <button class="consent-decline" id="declineAnalytics" type="button">Decline</button>
+    <button class="consent-accept" id="acceptAnalytics" type="button">Accept analytics</button>
+  </div>
+</aside>
+<script src="/assets/js/consent.js" defer></script>
+</body>
+</html>
