@@ -967,7 +967,51 @@ h2 {
   background:rgba(13,245,255,0.10); border:1px solid rgba(13,245,255,0.20);
 }
 .proj-mock-row i:nth-child(2) { background:rgba(155,110,255,0.10); border-color:rgba(155,110,255,0.20) }
-.proj:hover .proj-mock { transform:rotate(0deg) translateY(-3px) }
+.proj:hover .proj-mock { transform:rotate(0deg) translateY(-3px) scale(1.03) }
+
+/* ── Living thumbnail scenes: aurora orbs + floating glass chips + parallax ── */
+.thumb-fx { position:absolute; inset:0; z-index:0; pointer-events:none }
+.orb { position:absolute; border-radius:50%; filter:blur(26px); opacity:.5; animation:orbFloat 7s ease-in-out infinite alternate }
+.o0 {
+  width:190px; height:190px; left:50%; top:52%; margin:-95px 0 0 -95px;
+  background:radial-gradient(circle,rgba(13,245,255,.16),transparent 68%);
+  animation:orbPulse 4.5s ease-in-out infinite alternate;
+}
+.o1 { width:120px; height:120px; top:-30px; left:-24px; background:radial-gradient(circle,rgba(13,245,255,.5),transparent 70%) }
+.o2 { width:90px;  height:90px;  bottom:-24px; right:-14px; background:radial-gradient(circle,rgba(155,110,255,.45),transparent 70%); animation-delay:-2.5s; animation-duration:8.5s }
+.o3 { width:60px;  height:60px;  top:38%; right:20%; background:radial-gradient(circle,rgba(30,232,160,.32),transparent 70%); animation-delay:-4s; animation-duration:9.5s }
+@keyframes orbFloat { from { transform:translateY(-8px) scale(1) } to { transform:translateY(10px) scale(1.08) } }
+@keyframes orbPulse { from { opacity:.55; transform:scale(.94) } to { opacity:.95; transform:scale(1.06) } }
+
+/* per-theme orb colours */
+.pt2 .o1 { background:radial-gradient(circle,rgba(30,232,160,.5),transparent 70%) }
+.pt2 .o2 { background:radial-gradient(circle,rgba(13,245,255,.4),transparent 70%) }
+.pt2 .o3 { background:radial-gradient(circle,rgba(155,110,255,.3),transparent 70%) }
+.pt3 .o1 { background:radial-gradient(circle,rgba(155,110,255,.5),transparent 70%) }
+.pt3 .o2 { background:radial-gradient(circle,rgba(13,245,255,.4),transparent 70%) }
+.pt3 .o3 { background:radial-gradient(circle,rgba(30,232,160,.3),transparent 70%) }
+.pt4 .o1 { background:radial-gradient(circle,rgba(13,245,255,.45),transparent 70%) }
+.pt4 .o2 { background:radial-gradient(circle,rgba(155,110,255,.5),transparent 70%) }
+.pt4 .o3 { background:radial-gradient(circle,rgba(13,245,255,.3),transparent 70%) }
+
+.thumb-chip-wrap { position:absolute; z-index:2; transition:transform .7s var(--spring) }
+.thumb-chip {
+  display:flex; align-items:center; gap:6px; padding:7px 9px; border-radius:10px;
+  background:rgba(10,14,20,.72); border:1px solid rgba(174,208,255,.14);
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+  animation:chipFloat 5.5s ease-in-out infinite alternate;
+}
+.thumb-chip i { width:14px; height:14px; border-radius:5px; background:rgba(13,245,255,.16); border:1px solid rgba(13,245,255,.28) }
+.thumb-chip b { display:block; width:34px; height:4px; border-radius:99px; background:rgba(196,206,216,.16) }
+@keyframes chipFloat { from { transform:translateY(-5px) } to { transform:translateY(6px) } }
+.tc1 { left:9%;  bottom:15%; animation-delay:-1.2s }
+.tc1 .thumb-chip { animation-delay:-1.2s }
+.tc2 { right:8%; top:14% }
+.tc2 .thumb-chip { animation-delay:-3s; animation-duration:6.8s }
+.tc2 .thumb-chip i { background:rgba(155,110,255,.16); border-color:rgba(155,110,255,.3) }
+.tc2 .thumb-chip b { width:22px }
+.proj:hover .tc1 { transform:translate(-9px,7px) }
+.proj:hover .tc2 { transform:translate(9px,-7px) }
 
 /* Highlight the project opened via /projects.html#anchor */
 .proj:target {
@@ -1381,7 +1425,25 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
     linear-gradient(145deg,rgba(255,255,255,0.045),transparent 42%),
     rgba(21,29,40,0.84);
   scroll-margin-top:82px;
+  position:relative; overflow:hidden;
+  transition:background .35s var(--ease-out), box-shadow .35s var(--ease-out);
 }
+.service-offer::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--grad); opacity:0; transition:opacity .35s;
+}
+.service-offer::after {
+  content:''; position:absolute; inset:0;
+  background:var(--grad-glow); opacity:0; transition:opacity .35s;
+}
+.service-offer:hover {
+  background:
+    linear-gradient(145deg,rgba(13,245,255,0.09),rgba(155,110,255,0.045) 48%,transparent),
+    rgba(21,29,40,0.92);
+  box-shadow:inset 0 0 0 1px rgba(13,245,255,0.2);
+}
+.service-offer:hover::before, .service-offer:hover::after { opacity:1 }
+.service-offer > * { position:relative; z-index:1 }
 .service-offer-num {
   color:var(--muted2); font-family:'DM Mono',monospace;
   font-size:0.58rem; margin-bottom:18px;
@@ -1391,7 +1453,9 @@ footer { padding:26px 5%; background:var(--bg); border-top:1px solid var(--borde
   width:42px; height:42px; margin-bottom:18px; border-radius:8px;
   color:var(--white); background:var(--grad);
   box-shadow:0 8px 22px rgba(13,245,255,0.18);
+  transition:transform .3s var(--spring), box-shadow .3s;
 }
+.service-offer:hover .service-offer-icon { transform:scale(1.1); box-shadow:0 10px 26px rgba(13,245,255,0.38) }
 .service-offer h3 {
   color:var(--white); font-family:'Syne',sans-serif;
   font-size:1rem; margin-bottom:10px;
