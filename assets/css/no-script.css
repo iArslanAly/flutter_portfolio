@@ -1,0 +1,7 @@
+/* Keep homepage navigation usable when JavaScript is unavailable. */
+.hamburger, [data-manage-consent] { display:none }
+@media (max-width:768px) {
+  nav { position:relative; height:auto; min-height:66px; flex-wrap:wrap; gap:12px; padding:18px 5% }
+  .nav-links { display:flex; flex-wrap:wrap; width:100%; gap:8px }
+  .nav-links a { display:block; padding:8px; font-size:0.8rem }
+}

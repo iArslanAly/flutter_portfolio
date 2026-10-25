@@ -7,6 +7,8 @@ import shutil
 import sys
 from pathlib import Path
 
+from sync_content import sync
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "_site"
@@ -22,6 +24,7 @@ DIRECTORIES = ("assets", "services", "projects", "privacy-policy", "terms")
 
 
 def build(output: Path) -> None:
+    sync(check=True)
     output = output.resolve()
     if output == ROOT or output in ROOT.parents:
         raise SystemExit("Build output must not replace the project source directory.")

@@ -1,0 +1,18 @@
+{
+  "education": {
+    "degree": "Bachelor of Science in Computer Science (BSCS)",
+    "university": "Virtual University of Pakistan",
+    "period": "September 2020 – September 2024",
+    "graduation_year": "2024",
+    "cgpa": "3.04/4.00"
+  },
+  "experience": {
+    "internship_company": "TechSwivel",
+    "internship_period": "2025"
+  },
+  "statistics": {
+    "projects": 15,
+    "clients": 12,
+    "experience": 2
+  }
+}

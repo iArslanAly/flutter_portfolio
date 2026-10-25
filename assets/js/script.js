@@ -65,12 +65,23 @@ function setMenu(open) {
   menuButton.setAttribute('aria-expanded', String(open));
   document.body.style.overflow = open ? 'hidden' : '';
   if (open) closeMenuButton.focus();
+  else menuButton.focus({ preventScroll: true });
 }
 
 menuButton.addEventListener('click', () => setMenu(true));
 closeMenuButton.addEventListener('click', () => setMenu(false));
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
+  if (!mobileMenu.classList.contains('open')) return;
+  if (event.key === 'Escape') setMenu(false);
+  if (event.key === 'Tab') {
+    const items = mobileMenu.querySelectorAll('button, a[href]');
+    const first = items[0], last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus();
+    }
+  }
 });
 function cM() { setMenu(false); }
 document.querySelectorAll('#mob a').forEach(link => link.addEventListener('click', cM));
@@ -80,6 +91,7 @@ const roles  = ['Flutter Developer', 'Mobile App Builder', 'UI/UX Designer', 'Cr
 let ri = 0, ci = 0, deleting = false;
 const twEl   = document.getElementById('tw-text');
 function tick() {
+  if (prefersReducedMotion.matches) { twEl.textContent = roles[0]; return; }
   const word = roles[ri];
   if (!deleting) {
     twEl.textContent = word.slice(0, ++ci);
@@ -91,34 +103,73 @@ function tick() {
     setTimeout(tick, 42);
   }
 }
-tick();
+if (!prefersReducedMotion.matches) tick();
 
 /* ── ANIMATED COUNTERS ── */
-function countUp(el, target) {
-  const dur = 1800, step = target / (dur / 16);
-  let v = 0;
-  const t = setInterval(() => {
-    v = Math.min(v + step, target);
-    el.textContent = Math.floor(v) + '+';
-    if (v >= target) clearInterval(t);
-  }, 16);
+// HTML contains the final values: animation is only a progressive enhancement.
+const counters = document.querySelectorAll('[data-count]');
+const activeCounters = new Map();
+function finishCounter(el) {
+  const animation = activeCounters.get(el);
+  if (animation) {
+    cancelAnimationFrame(animation.frame);
+    clearTimeout(animation.timeout);
+    activeCounters.delete(el);
+  }
+  el.textContent = el.dataset.count + '+';
 }
-const cObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    countUp(e.target, parseInt(e.target.dataset.count));
-    cObs.unobserve(e.target);
-  });
-}, { threshold: 0.6 });
-document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+function countUp(el) {
+  const target = Number(el.dataset.count);
+  if (!Number.isFinite(target) || target < 0) return;
+  if (prefersReducedMotion.matches || document.hidden) { finishCounter(el); return; }
+  const startedAt = performance.now();
+  const animation = { frame: 0, timeout: setTimeout(() => finishCounter(el), 2000) };
+  activeCounters.set(el, animation);
+  // Keep the accessible value stable while the visible digits animate.
+  el.setAttribute('aria-label', target + '+');
+  function frame(now) {
+    const progress = Math.min((now - startedAt) / 1800, 1);
+    if (progress >= 1 || prefersReducedMotion.matches || document.hidden) {
+      finishCounter(el);
+      return;
+    }
+    el.textContent = Math.floor(target * progress) + '+';
+    animation.frame = requestAnimationFrame(frame);
+  }
+  animation.frame = requestAnimationFrame(frame);
+}
+if ('IntersectionObserver' in window && !prefersReducedMotion.matches) {
+  const cObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      countUp(entry.target);
+      cObs.unobserve(entry.target);
+    });
+  }, { threshold: 0.6 });
+  counters.forEach(el => cObs.observe(el));
+}
+function settleCounters() { counters.forEach(finishCounter); }
+document.addEventListener('visibilitychange', () => { if (document.hidden) settleCounters(); });
+window.addEventListener('pagehide', settleCounters);
+prefersReducedMotion.addEventListener('change', () => {
+  if (prefersReducedMotion.matches) settleCounters();
+});
 
-/* ── SCROLL REVEAL — no JS stagger, clean class add ── */
-const rObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('in'); rObs.unobserve(e.target); }
+/* ── SCROLL REVEAL — content stays visible without JavaScript or observers ── */
+if ('IntersectionObserver' in window && !prefersReducedMotion.matches) {
+  const rObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        rObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '-16px 0px -16px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => {
+    rObs.observe(el);
+    el.classList.add('reveal-pending');
   });
-}, { threshold: 0.08, rootMargin: '-16px 0px -16px 0px' });
-document.querySelectorAll('.reveal').forEach(el => rObs.observe(el));
+}
 
 /* ── PREMIUM CARD SPOTLIGHT — CSS variables only, fine pointers ── */
 if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
@@ -175,9 +226,12 @@ async function submitForm(event) {
   msg.textContent = 'Sending your message...';
   msg.className = '';
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000);
   try {
     const response = await fetch(emailJsConfig.endpoint, {
       method: 'POST',
+      signal: controller.signal,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         service_id: emailJsConfig.serviceId,
@@ -205,12 +259,14 @@ async function submitForm(event) {
     msg.textContent = 'Message could not be sent. Please email contact@iarslanaly.dev directly.';
     msg.className = 'err';
   } finally {
+    clearTimeout(timeout);
     btn.disabled = false;
     btn.classList.remove('loading');
     btn.textContent = 'Send message';
   }
 }
 document.getElementById('contactForm').addEventListener('submit', submitForm);
+document.getElementById('submitBtn').disabled = false;
 
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();

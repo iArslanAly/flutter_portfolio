@@ -1,5 +1,20 @@
 const CONSENT_KEY = 'iarslanaly-analytics-consent';
 const GA_MEASUREMENT_ID = 'G-0NYCV99TDH';
+let sessionConsent = null;
+let consentTrigger = null;
+
+// Some browsers block storage; the current visit must still respect the choice.
+function readConsent() {
+  try { return localStorage.getItem(CONSENT_KEY) ?? sessionConsent; }
+  catch { return sessionConsent; }
+}
+function rememberConsent(choice) {
+  sessionConsent = choice;
+  try {
+    if (choice === null) localStorage.removeItem(CONSENT_KEY);
+    else localStorage.setItem(CONSENT_KEY, choice);
+  } catch { /* Keep the in-memory choice for this visit. */ }
+}
 
 function loadGoogleAnalytics() {
   if (window.googleAnalyticsLoaded) return;
@@ -16,10 +31,14 @@ function loadGoogleAnalytics() {
 }
 
 function setAnalyticsConsent(choice) {
-  localStorage.setItem(CONSENT_KEY, choice);
+  rememberConsent(choice);
   document.getElementById('consentBanner')?.classList.remove('show');
   window[`ga-disable-${GA_MEASUREMENT_ID}`] = choice !== 'accepted';
   if (choice === 'accepted') loadGoogleAnalytics();
+  if (consentTrigger) {
+    consentTrigger.focus({ preventScroll: true });
+    consentTrigger = null;
+  }
 }
 
 function showConsentBanner() {
@@ -27,7 +46,8 @@ function showConsentBanner() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const savedConsent = localStorage.getItem(CONSENT_KEY);
+  const savedConsent = readConsent();
+  window[`ga-disable-${GA_MEASUREMENT_ID}`] = savedConsent !== 'accepted';
 
   if (savedConsent === 'accepted') {
     window[`ga-disable-${GA_MEASUREMENT_ID}`] = false;
@@ -48,7 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-manage-consent]').forEach(button => {
     button.addEventListener('click', () => {
-      localStorage.removeItem(CONSENT_KEY);
+      consentTrigger = button;
+      rememberConsent(null);
       window[`ga-disable-${GA_MEASUREMENT_ID}`] = true;
       showConsentBanner();
       document.getElementById('consentBanner')?.focus();

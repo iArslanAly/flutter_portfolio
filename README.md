@@ -24,6 +24,10 @@ make build
 make validate
 ```
 
+Run regression checks with `make test` (requires Node.js in addition to Python).
+These cover content synchronization, broken internal links, required SEO and
+accessibility markup, and cookie controls when browser storage is blocked.
+
 ## Project structure
 
 ```text
@@ -43,6 +47,12 @@ make validate
 
 HTML pages intentionally remain at the repository root. This keeps existing public URLs stable and prevents avoidable SEO redirects.
 
+Shared education, internship details, and existing statistics live in `content/profile.json`.
+After editing them, run `python3 scripts/sync_content.py` to update the homepage's
+static HTML and profile structured data. The build checks for stale values, so
+readable content never depends on JavaScript. Statistics remain subject to owner
+verification; see `AUDIT.md` for outstanding evidence requests.
+
 ## Deployment
 
 Pushes to `main` trigger `.github/workflows/deploy-pages.yml`. The workflow:
@@ -52,4 +62,3 @@ Pushes to `main` trigger `.github/workflows/deploy-pages.yml`. The workflow:
 3. Uploads and deploys the artifact to GitHub Pages.
 
 Do not commit `_site`; it is generated automatically.
-

@@ -40,9 +40,31 @@ class PageParser(HTMLParser):
         self.is_redirect = False
         self._in_json_ld = False
         self._json_ld_parts: list[str] = []
+        self.metadata: dict[str, str] = {}
+        self.canonical: str | None = None
+        self.title = ""
+        self._in_title = False
+        self.main_id: str | None = None
+        self.missing_image_alt = False
+        self.field_ids: set[str | None] = set()
+        self.label_targets: set[str | None] = set()
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
+        if tag == "title":
+            self._in_title = True
+        if tag == "meta" and attributes.get("name"):
+            self.metadata[attributes["name"]] = attributes.get("content") or ""
+        if tag == "link" and attributes.get("rel") == "canonical":
+            self.canonical = attributes.get("href")
+        if tag == "main":
+            self.main_id = attributes.get("id")
+        if tag == "img" and "alt" not in attributes:
+            self.missing_image_alt = True
+        if tag in ("input", "textarea", "select") and attributes.get("type") != "hidden":
+            self.field_ids.add(attributes.get("id"))
+        if tag == "label":
+            self.label_targets.add(attributes.get("for"))
         if tag == "h1":
             self.h1_count += 1
         if tag == "meta" and attributes.get("http-equiv", "").lower() == "refresh":
@@ -64,10 +86,14 @@ class PageParser(HTMLParser):
             self._json_ld_parts = []
 
     def handle_data(self, data: str) -> None:
+        if self._in_title:
+            self.title += data
         if self._in_json_ld:
             self._json_ld_parts.append(data)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self._in_title = False
         if tag == "script" and self._in_json_ld:
             self.json_ld_blocks.append("".join(self._json_ld_parts))
             self._in_json_ld = False
@@ -75,11 +101,12 @@ class PageParser(HTMLParser):
 
 def local_target(site: Path, page: Path, reference: str) -> tuple[Path, str] | None:
     parsed = urlparse(reference)
-    if parsed.scheme in IGNORED_SCHEMES or parsed.netloc:
+    same_site = parsed.netloc == DOMAIN and parsed.scheme in ("http", "https", "")
+    if not same_site and (parsed.scheme in IGNORED_SCHEMES or parsed.netloc):
         return None
 
     path = unquote(parsed.path)
-    if path.startswith("/"):
+    if same_site or path.startswith("/"):
         target = site / (path.lstrip("/") or "index.html")
     elif path:
         target = page.parent / path
@@ -132,6 +159,23 @@ def validate(site: Path) -> None:
     parsed_pages = {page.resolve(): parse_page(page) for page in html_pages}
 
     for page, parser in parsed_pages.items():
+        if not parser.is_redirect:
+            if not parser.title.strip():
+                errors.append(f"{page}: missing title")
+            for name in ("description", "viewport"):
+                if not parser.metadata.get(name, "").strip():
+                    errors.append(f"{page}: missing {name} metadata")
+            if "noindex" not in parser.metadata.get("robots", ""):
+                relative = page.relative_to(site.resolve()).as_posix()
+                path = "/" + relative.removesuffix("index.html")
+                if parser.canonical != f"https://{DOMAIN}{path}":
+                    errors.append(f"{page}: missing or incorrect canonical URL")
+            if parser.main_id != "main-content":
+                errors.append(f"{page}: missing main-content landmark")
+            if parser.missing_image_alt:
+                errors.append(f"{page}: image without an alt attribute")
+            if None in parser.field_ids or parser.field_ids - parser.label_targets:
+                errors.append(f"{page}: form field without an explicit label")
         if not parser.is_redirect and parser.h1_count != 1:
             errors.append(f"{page.name}: expected one H1, found {parser.h1_count}")
         if parser.duplicate_ids:
